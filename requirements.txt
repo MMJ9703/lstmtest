@@ -9,6 +9,6 @@ Flask
 flask-executor
 sqlalchemy
 pymysql
-tensorflow==1.14.0
+tensorflow
 sklearn
 pywt
