@@ -107,7 +107,8 @@ def prelstm():
 # rest  api（应用执行端口）
 @application.route('/')
 def test():
-    return b'hello '
+    print('OK')
+    return b'OK '
 @application.route('/trainlstm', methods=['POST'])
 def train():
     executor.submit(trainlstm)
