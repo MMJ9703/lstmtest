@@ -3,12 +3,12 @@ pandas
 requests
 PyWavelets
 pymongo
-gunicorn>=20.0.0; python_version >= '3.5'
+gunicorn>=20.0.0; python_version <= '3.7'
 six
 Flask
 flask-executor
 sqlalchemy
 pymysql
-tensorflow
+tensorflow<='1.15'
 sklearn
 pywt
