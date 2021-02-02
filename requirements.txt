@@ -12,4 +12,4 @@ sqlalchemy
 pymysql
 tensorflow
 sklearn
-pywt
+PyWavelets
