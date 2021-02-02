@@ -31,11 +31,12 @@ sqlEngine = create_engine(mysql_uri, pool_recycle=3600)
 
 print ('=== mysql uri: ' + mysql_uri)
 
-def trainlstm():  
+def trainlstm():
     try:
 
         # 读取信息
         param = request.get_json()
+        saveConfigToFile(param)
         ID = param["param"]["id"]
         col_input = param["param"]["input"]
         col_target = param["param"]["target"]
@@ -141,6 +142,5 @@ def prediction():
 
 
 if __name__ == '__main__':
-
     application.run()
 
