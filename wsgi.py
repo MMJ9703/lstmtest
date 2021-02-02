@@ -95,8 +95,8 @@ def prelstm():
         numb = 12
         b_pi = Bayes_pi(resid,numb)
         #存入数据库
-        resid.to_sql('id'+ID+'_'+param["name"],con=sqlEngine, if_exists='append', index=False)
-        b_pi.to_sql('id'+ID+'_bayesresult',con=sqlEngine, if_exists='append', index=False)
+        resid.to_sql('id'+ID+'_'+param["name"],con=sqlEngine, if_exists='replace', index=True)
+        b_pi.to_sql('id'+ID+'_bayesresult',con=sqlEngine, if_exists='replace', index=True)
         print('=======finish=======')
     except Exception as e:
         print ('===error===')
