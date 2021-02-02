@@ -1,15 +1,17 @@
-numpy==1.19.2
+numpy
 pandas
 requests
 PyWavelets
 pymongo
-gunicorn>=20.0.0; python_version >= '3.5'
+gunicorn>=20.0.0; python_version <= '3.5'
 six
 Flask
 flask-executor
-flask_cors
+flask-cors
 sqlalchemy
 pymysql
 tensorflow
 sklearn
-PyWavelets
+json
+time
+pathlib

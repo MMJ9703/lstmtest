@@ -4,6 +4,9 @@ import os
 from data_process import data_process
 from read_mysql import read_mysql
 from lstm_model import train_lstm,predict_lstm,Bayes_pi
+from pathlib import Path
+import json
+import time
 # Web应用程序设置
 from flask_executor import Executor
 
@@ -62,6 +65,23 @@ def trainlstm():
         print (e)
         raise e
     return True
+
+def saveConfigToFile(data):
+    try:
+        # 文件夹的命名机组名
+        ym = time.strftime('%Y%m')
+        calfolder = data["param"]["model"]["name"] + "-" + data["param"]["id"] + "-" + ym
+
+        filename = "config.json"
+        filedir = Path('traincalculatins', calfolder)
+        filepath = Path('traincalculatins', calfolder, filename)
+        filedir.mkdir(parents=True, exist_ok=True)
+        with open(filepath, 'w') as json_file:
+            json.dump(data, json_file, ensure_ascii=False)
+    except Exception as e:
+        return False
+    else:
+        return True
 
 def prelstm():  
     try:
