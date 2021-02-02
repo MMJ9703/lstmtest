@@ -12,5 +12,4 @@ sqlalchemy
 pymysql
 tensorflow
 sklearn
-time
 pathlib
