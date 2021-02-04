@@ -126,6 +126,7 @@ def prelstm():
     return True
 
 # rest  api（应用执行端口）
+@cross_origin()
 @application.route('/')
 def test():
     print('OK')
