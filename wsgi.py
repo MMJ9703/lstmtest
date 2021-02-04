@@ -131,10 +131,12 @@ def prelstm():
 def test():
     print('OK')
     return b'OK '
+@cross_origin()
 @application.route('/trainlstm', methods=['POST'])
 def train():
     executor.submit(trainlstm)
     return b'mainf '
+@cross_origin()
 @application.route('/prelstm', methods=['POST'])
 def prediction():
     executor.submit(prelstm)
