@@ -10,6 +10,7 @@ def read_mysql(sqlEngine,ID,col,starttime,endtime):
         print(col[i])
         print(type(starttime))
         data = data[col[i]]
+        print(data)
         data = data[starttime:endtime]
         data_lst[i] = data
     return data_lst
