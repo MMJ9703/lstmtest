@@ -8,6 +8,7 @@ def read_mysql(sqlEngine,ID,col,starttime,endtime):
         data['Time'] = pd.to_datetime(data['Time'],format='%Y-%m-%d %H:%M:%S')
         data = data.set_index('Time')
         print(col[i])
+        print(type(starttime))
         data = data[col[i]]
         data = data[starttime:endtime]
         data_lst[i] = data
