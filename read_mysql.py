@@ -9,7 +9,7 @@ def read_mysql(sqlEngine,ID,col,starttime,endtime):
         data['Time'] = pd.to_datetime(data['Time'],format='%Y-%m-%d %H:%M:%S')
         print(type(data['Time'][0]))
         data = data.set_index('Time')
-        print(type(data.index.value[0]))
+        print(type(data.index.dtype))
         print(i)
         print(col[i])
         #print(type(data['Time']))
