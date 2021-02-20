@@ -11,8 +11,8 @@ def read_mysql(sqlEngine,ID,col,starttime,endtime):
         print(type(starttime))
         print(starttime)
         data = data[col[i]]
-        starttime = pd.to_datetime(starttime,format='%Y-%m-%d %H:%M:%S')
-        endtime = pd.to_datetime(endtime,format='%Y-%m-%d %H:%M:%S')
+        #starttime = pd.to_datetime(starttime,format='%Y-%m-%d %H:%M:%S')
+        #endtime = pd.to_datetime(endtime,format='%Y-%m-%d %H:%M:%S')
         data = data[starttime:endtime]
         data_lst[i] = data
     return data_lst
