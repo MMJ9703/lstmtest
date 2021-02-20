@@ -15,7 +15,7 @@ def read_mysql(sqlEngine,ID,col,starttime,endtime):
         data = data[col[i]]
         #starttime = datetime.datetime.strptime(starttime, "%Y-%m-%d %H:%M:%S")
         #endtime = datetime.datetime.strptime(endtime, "%Y-%m-%d %H:%M:%S")
-        data = data[starttime:endtime]
+        data = data.loc[starttime:endtime]
         print(data)
         data_lst[i] = data
     return data_lst
