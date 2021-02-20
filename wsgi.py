@@ -64,7 +64,7 @@ def trainlstm():
     except Exception as e:
         print ('===error===')
         print (e)
-        print 'e.message:\t', e.message
+        print ('error message:'+e.message)
         raise e
     return True
 
@@ -123,7 +123,7 @@ def prelstm():
     except Exception as e:
         print ('===error===')
         print (e)
-        print 'e.message:\t', e.message
+        print ('error message:'+e.message)
         raise e
     return True
 
