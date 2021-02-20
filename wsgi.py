@@ -47,8 +47,10 @@ def trainlstm():
         scalerind = int(param["param"]["preprocess"]["scalerind"])
         model = param["param"]["model"]
         # 输入数据
+        print("===输入数据===")
         data_input_lst = read_mysql(sqlEngine,ID,col_input,starttime,endtime)
-        #输出数据
+        # 输出数据
+        print("===输出数据===")
         data_target_lst = read_mysql(sqlEngine,ID,col_target,starttime,endtime)
         # 数据前处理
         cldata_input_lst = {}
@@ -58,6 +60,7 @@ def trainlstm():
         for i in data_target_lst:
             cldata_target_lst[i] = data_process(data_target_lst[i],missing_values,denoising,scalerind)
         # 模型训练
+        print("===模型训练===")
         train_lstm(param["name"],cldata_input_lst['vib'],cldata_target_lst['vib']
                    ,int(model['num']),int(model['tinterval']),int(model['batchsize']),int(model['epochs']))
         print('=======finish=======')
