@@ -9,13 +9,13 @@ def read_mysql(sqlEngine,ID,col,starttime,endtime):
         data['Time'] = pd.to_datetime(data['Time'],format='%Y-%m-%d %H:%M:%S')
         data.set_index('Time',inplace=True)
         #data = data.set_index('Time')
-        print(type(data.index.dtype))
+        #print(type(data.index.dtype))
         #print(type(data['Time']))
         #print(starttime)
         data = data[col[i]]
         #starttime = datetime.datetime.strptime(starttime, "%Y-%m-%d %H:%M:%S")
         #endtime = datetime.datetime.strptime(endtime, "%Y-%m-%d %H:%M:%S")
         data = data.loc[starttime:endtime]
-        print(data)
+        #print(data)
         data_lst[i] = data
     return data_lst
