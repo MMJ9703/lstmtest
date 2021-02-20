@@ -64,6 +64,7 @@ def trainlstm():
     except Exception as e:
         print ('===error===')
         print (e)
+        print (str(e))
         print ('error message:'+e.message)
         raise e
     return True
