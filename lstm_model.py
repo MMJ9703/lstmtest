@@ -79,7 +79,9 @@ def Data_Refactoring(data_input0,data_target0,dim,t):
     return data_input,data_target
 #%%----------------------------------------------------------------------------
 def train_lstm(name,x_train_input,x_train_target,num,t_interval,BATCH_SIZE,EPOCHS):
+    print("===数据转换===")
     x_train_input,x_train_target = Data_Refactoring(x_train_input,x_train_target,num,t_interval)
+    print("===lstm训练===")
     lstm_train(name,lstm_model(num,x_train_input.shape[2],x_train_target.shape[1])
                ,x_train_input,x_train_target,BATCH_SIZE,EPOCHS)
 
