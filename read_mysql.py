@@ -7,11 +7,9 @@ def read_mysql(sqlEngine,ID,col,starttime,endtime):
         table_name = 'id'+ID+'pt_'+i.lower()
         data = pd.read_sql("select * from  "+table_name , con=sqlEngine, index_col=None)
         data['Time'] = pd.to_datetime(data['Time'],format='%Y-%m-%d %H:%M:%S')
-        print(type(data['Time'][0]))
-        data = data.set_index('Time')
+        data.set_index('Time',inplace=True)
+        #data = data.set_index('Time')
         print(type(data.index.dtype))
-        print(i)
-        print(col[i])
         #print(type(data['Time']))
         #print(starttime)
         data = data[col[i]]
