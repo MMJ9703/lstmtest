@@ -90,6 +90,7 @@ def train_lstm(name,x_train_input,x_train_target,num,t_interval,BATCH_SIZE,EPOCH
                ,x_train_input,x_train_target,BATCH_SIZE,EPOCHS)
 
 def predict_lstm(model_name,x_pre_input,x_pre_target,num,t_interval):
+    print(model_name)
     model = load_model(model_name+'.h5')
     x_test_input,x_test_target = Data_Refactoring(x_pre_input,x_pre_target,num,t_interval)
     x_test_pre = lstm_predict(model,x_test_input)
