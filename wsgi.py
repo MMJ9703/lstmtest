@@ -119,7 +119,7 @@ def prelstm():
             cldata_target_lst[i] = data_process(data_target_lst[i],missing_values,denoising,scalerind)
         # 模型预测
         print("===预测残差===")
-        resid = predict_lstm(model["modelname"],cldata_input_lst['vib'],cldata_target_lst['vib']
+        resid = predict_lstm(model["name"],cldata_input_lst['vib'],cldata_target_lst['vib']
                              ,int(model['num']),int(model['tinterval']))
         # bayes
         print("===计算贝叶斯===")
