@@ -61,7 +61,7 @@ def trainlstm():
             cldata_target_lst[i] = data_process(data_target_lst[i],missing_values,denoising,scalerind)
         # 模型训练
         print("===模型训练===")
-        train_lstm(param["name"],cldata_input_lst['vib'],cldata_target_lst['vib']
+        train_lstm(model["name"],cldata_input_lst['vib'],cldata_target_lst['vib']
                    ,int(model['num']),int(model['tinterval']),int(model['batchsize']),int(model['epochs']))
         print('=======finish=======')
     except Exception as e:
