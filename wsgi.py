@@ -123,7 +123,7 @@ def prelstm():
                              ,int(model['num']),int(model['tinterval']))
         # bayes
         print("===计算贝叶斯===")
-        numb = 12
+        numb = 6
         b_pi = Bayes_pi(resid,numb)
         #存入数据库
         print("===存入数据库===")
