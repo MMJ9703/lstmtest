@@ -121,13 +121,15 @@ def prelstm():
         print("===预测残差===")
         resid = predict_lstm(model["name"],cldata_input_lst['vib'],cldata_target_lst['vib']
                              ,int(model['num']),int(model['tinterval']))
+        print("===存入残差===")
+        resid.to_sql('id'+ID+'_'+param["name"],con=sqlEngine, if_exists='append', index=True)
         # bayes
         print("===计算贝叶斯===")
-        numb = 6
+        numb = 12
+        
         b_pi = Bayes_pi(resid,numb)
         #存入数据库
-        print("===存入数据库===")
-        resid.to_sql('id'+ID+'_'+param["name"],con=sqlEngine, if_exists='append', index=True)
+        print("===存入贝叶斯===")
         b_pi.to_sql('id'+ID+'_'+param["name"]+'_bayesresult',con=sqlEngine, if_exists='append', index=True)
         print('=======finish=======')
     except Exception as e:
