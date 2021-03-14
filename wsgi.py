@@ -1,18 +1,20 @@
 # 添加所需要的库
 import os
-# 添加自己编写的算法
-from data_process import data_process
-from read_mysql import read_mysql
-from lstm_model import train_lstm,predict_lstm,Bayes_pi
 from pathlib import Path
 import json
 import time
+import pymysql
+import pandas as pd
+# 添加自己编写的算法
+from data_process import data_process
+from read_mysql import read_mysql,read_mysql_pre
+from lstm_model import train_lstm,predict_lstm,Bayes_pi,Bayes_pi_t
+from write_mysql import write_mysql
 # Web应用程序设置
 from flask_executor import Executor
 
-import pandas as pd
-from threading import Thread
 
+from threading import Thread
 from sqlalchemy import create_engine
 
 
@@ -105,10 +107,10 @@ def prelstm():
         model = param["param"]["model"]
         # 输入数据
         print("===输入数据===")
-        data_input_lst = read_mysql(sqlEngine,ID,col_input,starttime,endtime)
+        data_input_lst = read_mysql_pre(sqlEngine,ID,col_input,starttime,endtime)
         # 输出数据
         print("===输出数据===")
-        data_target_lst = read_mysql(sqlEngine,ID,col_target,starttime,endtime)
+        data_target_lst = read_mysql_pre(sqlEngine,ID,col_target,starttime,endtime)
         # 数据前处理
         print("===前处理===")
         cldata_input_lst = {}
@@ -121,16 +123,21 @@ def prelstm():
         print("===预测残差===")
         resid = predict_lstm(model["name"],cldata_input_lst['vib'],cldata_target_lst['vib']
                              ,int(model['num']),int(model['tinterval']))
-        print("===存入残差===")
-        resid.to_sql('id'+ID+'_'+param["name"],con=sqlEngine, if_exists='append', index=True)
+        resid_table_name = 'id'+ID+'_'+param["name"]
+        print("===存入残差,数据表名:%s==="%resid_table_name)
+        if not resid.empty:
+            write_mysql(mysql_uri,resid_table_name,resid)
+        # resid.to_sql('id'+ID+'_'+param["name"],con=sqlEngine, if_exists='append', index=True)
         # bayes
         print("===计算贝叶斯===")
-        numb = 12
-        
-        b_pi = Bayes_pi(resid,numb)
+        numb = 1# 单位：小时
+        b_pi = Bayes_pi_t(resid,starttime,endtime,numb)
         #存入数据库
-        print("===存入贝叶斯===")
-        b_pi.to_sql('id'+ID+'_'+param["name"]+'_bayesresult',con=sqlEngine, if_exists='append', index=True)
+        b_pi_table_name = 'id'+ID+'_'+param["name"]+'_bayesresult'
+        print("===存入贝叶斯,数据表名:%s==="%b_pi_table_name)
+        if not b_pi.empty:
+            write_mysql(mysql_uri,b_pi_table_name,b_pi)
+        # b_pi.to_sql('id'+ID+'_'+param["name"]+'_bayesresult',con=sqlEngine, if_exists='append', index=True)
         print('=======finish=======')
     except Exception as e:
         print ('===error===')
@@ -160,4 +167,3 @@ def prediction():
 
 if __name__ == '__main__':
     application.run()
-

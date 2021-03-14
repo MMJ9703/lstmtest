@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import math
 import tensorflow
+import datetime
 from tensorflow.keras.models import load_model
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation
@@ -80,11 +81,9 @@ def Data_Refactoring(data_input0,data_target0,dim,t):
 #%%----------------------------------------------------------------------------
 def train_lstm(name,x_train_input,x_train_target,num,t_interval,BATCH_SIZE,EPOCHS):
     print("===数据转换===")
+    print(x_train_input.index[0])
+    print(x_train_input.index[-1])
     x_train_input,x_train_target = Data_Refactoring(x_train_input,x_train_target,num,t_interval)
-    print(type(x_train_input))
-    print(x_train_input)
-    print(type(x_train_target))
-    print(x_train_target)
     print("===lstm训练===")
     lstm_train(name,lstm_model(num,x_train_input.shape[2],x_train_target.shape[1])
                ,x_train_input,x_train_target,BATCH_SIZE,EPOCHS)
@@ -116,6 +115,26 @@ def Bayes_pi(resid,numb):
         pro_test = bayes_hypothesis(resid.values[i:i+numb])
         Bayes.append(pro_test)
         # print('Bayes confidence\t{:0.3f}'.format(pro_test))
-    Bayes = pd.DataFrame(Bayes,index=resid.index.values[numb-1:],columns=['Bayes factor'])
+    Bayes = pd.DataFrame(Bayes,index=resid.index.values[numb-1:],columns=['Bayesfactor'])
+    Bayes.index.name = 'Time'
     # Bayes.plot()
     return Bayes
+def Bayes_pi_t(resid,starttime,endtime,numb):
+    Bayes_value = pd.DataFrame(columns=['Bayesfactor'])
+    print('数据结束时间:'+str(resid.index[-1]))
+    print('数据开始时间:'+str(resid.index[0]))
+    if resid.index[-1]-resid.index[0]>2*datetime.timedelta(hours=numb):
+        starttime = pd.to_datetime(starttime)-datetime.timedelta(hours=2*numb)
+        endtime = pd.to_datetime(endtime)
+        dtime = starttime#+datetime.timedelta(minutes=5)
+        while dtime+datetime.timedelta(hours=numb) <= endtime:
+            # print(dtime)
+            if not resid[dtime:dtime+datetime.timedelta(hours=numb)].empty:
+                resid_values = resid[dtime:dtime+datetime.timedelta(hours=numb)].values
+                pro_test = bayes_hypothesis(resid_values)
+                Bayes_value.loc[dtime+datetime.timedelta(hours=numb),'Bayesfactor'] = pro_test
+                dtime += datetime.timedelta(minutes=5)
+            else:
+                dtime += datetime.timedelta(minutes=5)
+    Bayes_value.index.name = 'Time'
+    return Bayes_value
