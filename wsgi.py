@@ -112,6 +112,7 @@ def prelstm():
         print("===输出数据===")
         data_target_lst = read_mysql_pre(sqlEngine,ID,col_target,starttime,endtime)
         # 数据前处理
+        print(data_target_lst)
         print("===前处理===")
         cldata_input_lst = {}
         for i in data_input_lst:
