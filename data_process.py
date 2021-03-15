@@ -60,12 +60,14 @@ def normalize_X(X, scalerInd = 1):
 
 def data_process(data,missing_values,denoising,scalerind):
     # 缺失值处理
+    print('缺失值处理')
     if missing_values == 1:
         inputdata_1 = data
         outputdata_1 = pre_process(inputdata_1)
     else:
         outputdata_1 = inputdata_1
     # 数据去噪
+    print('数据去噪')
     if denoising == 1:
         inputdata_2 = outputdata_1
         outputdata_2 = DWPB('db8',3).denoising_process(inputdata_2)
@@ -73,6 +75,7 @@ def data_process(data,missing_values,denoising,scalerind):
     else:
         outputdata_2 = inputdata_2
     # 数据标准化/归一化
+    print('归一化')
     if scalerind == 1:
         inputdata_3 = outputdata_2
         outputdata_3 = normalize_X(inputdata_3, scalerInd = 1)
