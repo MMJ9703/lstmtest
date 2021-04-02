@@ -121,8 +121,8 @@ def Bayes_pi(resid,numb):
     return Bayes
 def Bayes_pi_t(resid,starttime,endtime,numb):
     Bayes_value = pd.DataFrame(columns=['Bayesfactor'])
-    print('数据结束时间:'+str(resid.index[-1]))
     print('数据开始时间:'+str(resid.index[0]))
+    print('数据结束时间:'+str(resid.index[-1]))
     if resid.index[-1]-resid.index[0]>2*datetime.timedelta(hours=numb):
         starttime = pd.to_datetime(starttime)-datetime.timedelta(hours=2*numb)
         endtime = pd.to_datetime(endtime)
