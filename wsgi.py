@@ -105,6 +105,7 @@ def prelstm():
         denoising = int(param["param"]["preprocess"]["denoising"])
         scalerind = int(param["param"]["preprocess"]["scalerind"])
         model = param["param"]["model"]
+        print('新数据开始结束时间:'+starttime+'-'+endtime)
         # 输入数据
         print("===输入数据===")
         data_input_lst = read_mysql_pre(sqlEngine,ID,col_input,starttime,endtime)
